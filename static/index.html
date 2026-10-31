@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Shiftwise — Workforce planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-icon">S</span><span>shiftwise<span class="brand-dot">.</span><small>WORKFORCE PLANNER</small></span></a>
+    <div class="workspace-label">WORKSPACE</div>
+    <nav>
+      <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-link" href="#schedule"><span>▤</span> Schedule <i id="nav-open-count">0</i></a>
+      <a class="nav-link" href="#team"><span>♧</span> Team</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="help-card"><span class="help-spark">✳</span><strong>Need a hand?</strong><p>Make your next shift plan in a few clicks.</p><a href="#schedule">Explore scheduler <span>↗</span></a></div>
+      <div class="user-profile"><div class="avatar admin">RK</div><div><strong>Rohit Kumar</strong><small>Workspace admin</small></div><span class="more">···</span></div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="top-actions"><span class="live-status"><span></span> All changes saved</span><button class="icon-button" aria-label="Notifications">♧<b></b></button><div class="avatar admin small-avatar">RK</div></div></header>
+    <section class="page" id="overview">
+      <div class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR WORKSPACE</div><h1>Good morning, Rohit <span class="wave">✦</span></h1><p class="subtitle">Here’s what’s happening with your team this week.</p></div><button id="week-label" class="date-button"><span>▦</span> This week <span class="chevron">⌄</span></button></div>
+
+      <section class="metrics" aria-label="Workforce summary">
+        <article class="metric-card"><div class="metric-top"><span>TEAM MEMBERS</span><span class="metric-icon blue">♧</span></div><div class="metric-value" id="metric-team">—</div><div class="metric-note"><span class="note-dot green-dot"></span> Active across all departments</div></article>
+        <article class="metric-card"><div class="metric-top"><span>SHIFTS THIS WEEK</span><span class="metric-icon purple">◷</span></div><div class="metric-value" id="metric-shifts">—</div><div class="metric-note"><span class="note-dot blue-dot"></span> <span id="metric-filled">—</span> shifts fully staffed</div></article>
+        <article class="metric-card"><div class="metric-top"><span>STAFFING COVERAGE</span><span class="metric-icon orange">◎</span></div><div class="metric-value"><span id="metric-coverage">—</span><small>%</small></div><div class="coverage-track"><span id="coverage-bar"></span></div></article>
+        <article class="metric-card"><div class="metric-top"><span>OPEN POSITIONS</span><span class="metric-icon pink">＋</span></div><div class="metric-value" id="metric-open">—</div><div class="metric-note"><span class="note-dot orange-dot"></span> Need your attention</div></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel schedule-panel" id="schedule">
+          <div class="panel-header"><div><div class="section-kicker">PLAN AHEAD</div><h2>Upcoming shifts</h2></div><div class="panel-actions"><button class="outline-button" id="add-shift-open">＋ Add shift</button><button class="text-button" id="auto-assign">✧ Auto-assign</button></div></div>
+          <div class="filter-row"><div class="filter-tabs"><button class="filter-tab active" data-filter="all">All shifts <span id="all-count">0</span></button><button class="filter-tab" data-filter="open">Needs staff <span id="open-count">0</span></button></div><select id="department-filter" aria-label="Filter by department"><option value="all">All departments</option></select></div>
+          <div class="shift-table-wrap"><table class="shift-table"><thead><tr><th>SHIFT</th><th>DEPARTMENT</th><th>DATE & TIME</th><th>TEAM</th><th>STATUS</th><th></th></tr></thead><tbody id="shift-rows"></tbody></table><div class="empty-state" id="empty-shifts" hidden>No shifts match these filters.</div></div>
+          <div class="table-footer"><span id="table-summary">Showing shifts</span><a href="#schedule">View full schedule <span>→</span></a></div>
+        </article>
+        <aside class="right-column">
+          <article class="panel coverage-panel"><div class="panel-header compact"><div><div class="section-kicker">YOUR PEOPLE</div><h2>Team overview</h2></div><a class="subtle-link" href="#team">View all</a></div><div id="department-list" class="department-list"></div><button class="add-team-button" id="add-employee-open"><span>＋</span> Add a team member</button></article>
+          <article class="tip-card"><div class="tip-icon">✳</div><div class="tip-title">A balanced week starts here</div><p>Spread hours evenly and keep your team fresh. Auto-assign finds the best fit for every open shift.</p><button id="tip-auto-assign">Try auto-assign <span>→</span></button><span class="tip-decoration">✳</span></article>
+        </aside>
+      </section>
+      <section class="team-section" id="team"><div class="team-title"><div><div class="section-kicker">MEET THE CREW</div><h2>Your team <span id="team-count-label"></span></h2></div><button class="outline-button" id="team-add-button">＋ Add team member</button></div><div id="employee-grid" class="employee-grid"></div></section>
+      <footer>Made for people who make great teams <span>✦</span><small>SHIFTWISE · WORKFORCE PLANNER</small></footer>
+    </section>
+  </main>
+
+  <dialog id="employee-dialog" class="form-dialog">
+    <form id="employee-form"><div class="dialog-heading"><div><div class="section-kicker">GROW YOUR TEAM</div><h2>Add a team member</h2></div><button type="button" class="dialog-close" data-close>×</button></div><p class="dialog-copy">Add someone new to your workspace. They’ll be available for shifts in their department.</p><label>Full name<input name="name" required placeholder="e.g. Jamie Rivera"></label><label>Email address<input name="email" type="email" required placeholder="jamie@company.com"></label><label>Department<select name="department_id" id="employee-department" required></select></label><div class="form-two"><label>Role<input name="role" required placeholder="e.g. Associate"></label><label>Weekly limit<input name="max_weekly_hours" type="number" min="1" max="80" value="40" required></label></div><fieldset class="availability-field"><legend>Available days</legend><div class="weekday-options"><label><input type="checkbox" name="weekdays" value="0" checked> Mon</label><label><input type="checkbox" name="weekdays" value="1" checked> Tue</label><label><input type="checkbox" name="weekdays" value="2" checked> Wed</label><label><input type="checkbox" name="weekdays" value="3" checked> Thu</label><label><input type="checkbox" name="weekdays" value="4" checked> Fri</label><label><input type="checkbox" name="weekdays" value="5"> Sat</label><label><input type="checkbox" name="weekdays" value="6"> Sun</label></div></fieldset><div class="form-two"><label>Available from<input name="availability_start" type="time" value="09:00" required></label><label>Available until<input name="availability_end" type="time" value="17:00" required></label></div><div class="form-error" id="employee-error"></div><div class="dialog-actions"><button type="button" class="outline-button" data-close>Cancel</button><button type="submit" class="primary-button">Add team member</button></div></form>
+  </dialog>
+
+  <dialog id="shift-dialog" class="form-dialog">
+    <form id="shift-form"><div class="dialog-heading"><div><div class="section-kicker">BUILD YOUR SCHEDULE</div><h2>Add a shift</h2></div><button type="button" class="dialog-close" data-close>×</button></div><p class="dialog-copy">Create a shift, then assign the right people to cover it.</p><label>Shift name<input name="label" required placeholder="e.g. Morning service"></label><label>Department<select name="department_id" id="shift-department" required></select></label><label>Schedule<select name="schedule_id" id="shift-schedule" required></select></label><label>Date<input name="shift_date" id="shift-date" type="date" required></label><div class="form-two"><label>Starts<input name="start_time" type="time" value="09:00" required></label><label>Ends<input name="end_time" type="time" value="15:00" required></label></div><label>People needed<input name="required_staff" type="number" min="1" max="20" value="2" required></label><div class="form-error" id="shift-error"></div><div class="dialog-actions"><button type="button" class="outline-button" data-close>Cancel</button><button type="submit" class="primary-button">Create shift</button></div></form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
